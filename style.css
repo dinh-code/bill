@@ -37,7 +37,7 @@ body{
     margin-bottom: 5mm;
 }
 
-.head, .info, .detail, #total, #shop{
+.head, .info, .detail, #total, .shop{
     /*width: 100%;*/
     margin-top: 7mm;
 }
@@ -326,7 +326,7 @@ tr:last-child {
     min-width: 20mm;
 }
 /******/
-#total, #shop{
+#total, .shop{
     /*height: 37mm;*/
     display: flex;
     align-items: end;
@@ -367,7 +367,7 @@ tr:last-child {
     align-items: center;
 }
 /******/
-#shop{
+.shop{
     /*height: 21mm;*/
     /*padding: 2mm;*/
     border: 2px solid var(--blue);
