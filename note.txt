@@ -1,0 +1,2 @@
+'{"sku": "'&[Mã mặt hàng]&'","proTitle": "'&[Mã mặt hàng].[Tên mặt hàng]&'","proDes": " ('&[Mã mặt hàng].[Đơn vị]&')'&[Mã mặt hàng].[Mô tả]&'","soLg": '&[Số lượng]&',"gia": "'&Text([Giá])&'","thanhTien": "'&Text([Tiền hàng])&'","tui": "'&[Đóng gói]&'","ghiChu": "'&[Ghi chú]&'"}'
+'["'&[Mã mặt hàng]&'","'&[Mã mặt hàng].[Tên mặt hàng]&'"," ('&[Mã mặt hàng].[Đơn vị]&')'&[Mã mặt hàng].[Mô tả]&'",'&[Số lượng]&',"'&Text([Giá])&'","'&Text([Tiền hàng])&'","'&[Đóng gói]&'","'&[Ghi chú]&'"]'

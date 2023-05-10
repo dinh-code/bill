@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nha khoa SV - Hóa đơn</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<body>
+    <div class="container">
+        <div id="head">
+            <div id="brand">
+                <div id="brand-logo">
+                    <img src="/logo-blue.svg">
+                    <img src="/logo.svg">
+                </div>
+                <div>
+                    <div id="brand-title" class="blue-text">NHA KHOA SV</div>
+                    <div id="brand-site" class="blue-text">www.nhakhoasv.com</div>
+                </div>
+            </div>
+            <div id="title">HÓA ĐƠN</div>
+        </div>
+        <div id="info">
+            <div id="info-top">
+                <div id="info-top-left">
+                    <div class="card h">
+                        <div class="card-header"><i class="material-icons">person</i> Khách hàng (anh / chị):&nbsp;
+                            <div id="hoTen" class="card-body">---</div>
+                        </div>
+                    </div>
+                    <div class="card h">
+                        <div class="card-header"><i class="material-icons">phone</i>Điện thoại:&nbsp;
+                            <div id="sdt" class="card-body">---</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="material-icons">pin_drop</i>
+                            <!--div class="card-body dc" style="width: 16mm;">Địa chỉ:&nbsp;</div-->
+                            <div id="diaChi" class="card-body dc">---</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="info-top-right">
+                    <div id="info-top-right-col1">
+                        <div class="card">
+                            <div class="card-header">Số hóa đơn</div>
+                            <div id="key" class="card-body-sm">---</div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Ngày đặt</div>
+                            <div id="ngayDat" class="card-body-sm">---</div>
+                        </div>        
+                    </div>
+                    <div id="info-top-right-col2">
+                        <div class="card text-right">
+                            <div class="card-header text-j-end">Vận chuyển</div>
+                            <div id="tenDVVC" class="card-body-sm">---</div>
+                        </div>
+                        <div class="card text-right">
+                            <div class="card-header text-j-end">Mã vận đơn</div>
+                            <div id="maDon" class="card-body-sm">---</div>
+                        </div>        
+                    </div>
+                    <div class="info-top-right-qrcode w17" id="keyQr">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="detail">
+            <table id="chiTiet">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>SẢN PHẨM</th>
+                        <th>SỐ LG</th>
+                        <th>ĐƠN GIÁ</th>
+                        <th>THÀNH TIỀN</th>
+                        <th>#</th>
+                        <th>GHI CHÚ</th>
+                    </tr>
+                </thead>
+                <tr class="blue-text">
+                    <td></td>
+                    <td class="text-center">TỔNG</td>
+                    <td id="tongSoLg" class="text-center">---</td>
+                    <td></td>
+                    <td id="tienHang" class="text-right" style="padding-right: 2mm;">---</td>
+                    <td id="soKien" class="text-center">---</td>
+                    <td id="ghiChu" class="text-center t-upper">---</td>
+                </tr>
+            </table>
+        </div>
+        <div id="shop">
+            <div class="col">
+                <div class="info-top-right-qrcode">
+                    <img id="vcb" src="">
+                </div>
+                <div class="payInfo">
+                    <div class="headImg">
+                        <img src="/vcb247.svg">
+                    </div>
+                    <div class="headInfo">
+                        ĐINH PHƯỚC AN<br>9968 747 831
+                    </div>    
+                </div>
+            </div>
+            <div class="col">
+                <div class="info-top-right-qrcode" id="momo">
+                </div>
+                <div class="payInfo">
+                    <div class="headImg">
+                        <img src="/momo.svg">
+                    </div>
+                    <div class="headInfo">
+                        ĐINH PHƯỚC AN<br>0968 747 831
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="justify-content: flex-end;">
+                <div class="payInfo">
+                    <div class="headImg">
+                        <img src="/gmap.svg">
+                    </div>
+                    <div class="headInfo" style="font-weight: bold;">
+                        Mua hàng & tư vấn<BR>05696 08118 (Zalo)
+                    </div>
+                </div>
+                <div class="info-top-right-qrcode" id="gmap">
+                    <!--img src="https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=https://goo.gl/maps/WNVStknA7ZxCAQG48"-->
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <script src="/ConvertVie.js"></script>
+    <script src="/push.js"></script>
+</body>
+</html>

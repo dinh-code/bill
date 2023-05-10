@@ -1,0 +1,401 @@
+*{
+    font-family: sans-serif;
+    font-size: 3.11mm;
+    /*--blue: #00C8E5;*/
+    --blue: #124f98;
+    --gray: #D9D9D9;
+}
+
+body{
+
+    background-color: var(--gray);
+
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+}
+
+.blue-text{
+    color: var(--blue);
+}
+.while-text{
+    color: white!important;
+}
+.blue-bg{
+    background-color: var(--blue)!important;
+}
+.while-bg{
+    background-color: white;
+}
+.container{
+    padding: 10mm;
+    width: 210mm;
+    height: 297mm;
+
+    background-color: white;
+
+    margin: auto;
+}
+
+#head, #info, #detail, #total, #shop{
+    /*width: 100%;*/
+    margin-top: 7mm;
+}
+/******/
+#head{
+    display: flex;
+    justify-content: space-between;
+    height: 20mm;
+    margin-top: 0mm;
+    text-align: center;
+}
+#hoTen{
+    text-transform: uppercase;
+}
+#brand{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70mm;
+}
+
+#brand-logo{
+    width: 24mm;
+}
+
+#brand-logo img:nth-child(2){
+    display: none;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+}
+
+#brand-title{
+    font-size: 4.65mm;
+    font-weight: bold;
+}
+
+#brand-site{
+    font-size: 3.11mm;
+}
+
+#title{
+    width: 89mm;
+    font-size: 18mm;
+    font-weight: bold;
+}
+
+/******/
+#info-top{
+    height: 22mm;
+    display: flex;
+    justify-content: space-between;
+}
+#info-top-left{
+    /*width: 84mm;*/
+    padding: 3mm 3mm 0 0;
+}
+/*#info-top-left div.card{
+    display: inline-flex;
+    align-items: center;
+    height: auto;
+}
+#info-top-left .card-header{
+    padding-right: 2mm;
+}*/
+#info-top-right{
+    width: 89mm;
+    border: 2px solid;
+    display: flex;
+    border-radius: 2mm;
+}
+#info-top-right-col1{
+    width: 18mm;
+    padding: 2mm;
+}
+#info-top-right-col2{
+    width: 42mm;
+    padding: 2mm;
+}
+.info-top-right-qrcode{
+    width: 20mm;
+    height: 20mm;
+    border-left: 0.35mm solid;
+    padding: 2mm;
+}
+.w17{
+    width: 17mm;
+    height: 17mm;
+}
+.info-top-right-qrcode img{
+    /*border-radius: 2mm;*/
+}
+.card{
+    height: 10mm;
+    width: 100%;
+}
+.h{
+    height: 5mm;
+}
+.dc{
+    font-weight: unset!important;
+    font-size: 3mm!important;
+    line-height: normal!important;
+    text-align: justify;
+    text-align-last: right;
+}
+.card:first-child{
+    line-height: 3mm;
+}
+.card-header {
+    font-size: 3.11mm;
+    line-height: 4mm;
+    align-items: center;
+    display: flex;
+}
+.text-right{
+    text-align: end;
+}
+.text-center{
+    text-align: center;
+}
+.text-j-end{
+    justify-content: end;
+}
+.card-header i{
+    font-size: 3.11mm;
+    padding-right: 1mm;
+    width: fit-content;
+}
+.flex{
+    display: flex;
+}
+.f-center{
+    justify-content: space-between;
+    justify-items: center;
+}
+.h-fit{
+    height: fit-content;
+}
+.card-body{
+    font-size: 3.84mm;
+    font-weight: bold;
+    line-height: 5mm;
+    width: fit-content;
+}
+.card-body-sm{
+    font-size: 3.11mm;
+    font-weight: bold;
+}
+#info-down{
+    height: 10mm;
+    padding-top: 1mm;
+}
+.as-start{
+    align-self: flex-start;
+}
+/*.card-header-address{
+    font-size: 3.11mm;
+    background-image: url('/pin.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 5mm;
+}*/
+/******/
+#detail{
+    height: auto;
+}
+/*table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #00C8E5;
+    border-radius: 4mm;
+    overflow: hidden;
+}*/
+/*th{
+    height: 6.5mm;
+    color: white;
+    background-color: #00C8E5;
+}*/
+td{
+    padding: 1mm 2mm;
+}
+/*th:nth-child(2n), td:nth-child(2n){
+    border: 1px solid #00C8E5;
+    border-width: 0 1px;
+}*/
+    tr:nth-child(2n){
+    background-color: var(--gray);
+}
+    /*tr:last-child{
+        background-color: white!important;
+    }*/
+
+td .card-header{
+    font-style: italic;
+}
+
+table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+thead th{
+    background-color: var(--blue);
+    /*border-style: solid;
+    border-block-start-width: 0;
+    border-inline-end-width: 1px;
+    border-block-end-width: 0;
+    border-inline-start-width: 0;*/
+    color: white;
+    height: 6.5mm;
+
+  }
+td{
+    border-color: var(--blue);
+    border-style: solid;
+    border-block-start-width: 0;
+    border-inline-end-width: 1px;
+    border-block-end-width: 0px;
+    border-inline-start-width: 0;
+  }
+
+/* Because of `border-collapse: separate`, we need to  */
+tr td:first-of-type{
+    border-inline-start-width: 2px;
+}
+tr td:last-of-type{
+    border-inline-end-width: 2px;
+}
+/* For header-cells, we set the `border-color` of the first and last border to it's `background-color` */
+tr th:last-of-type{
+    border-inline-color: var(--blue);
+}
+tr th:first-of-type{
+    border-inline-start-color: var(--blue);
+}
+/* Set `border-radius` on first and last rows, on first and last cell */
+thead th:first-of-type, .left-radius{
+    border-start-start-radius: 2mm;
+}
+thead th:last-of-type, .right-radius{
+    border-start-end-radius: 2mm;
+}
+tbody tr:last-of-type td:first-of-type{
+    border-end-start-radius: 2mm;
+}
+tr:last-of-type td:last-of-type{
+    border-end-end-radius: 2mm;
+    
+}
+tr:last-of-type td{
+    border-block-start-width: 2px;
+    border-block-end-width: 2px;
+    font-weight: bold;
+    height: 6.5mm;
+    /*color: var(--blue);*/
+    /*background-color: white;*/
+    font-size: 4mm;
+}
+.t-upper{
+    text-transform: uppercase;
+}
+tr:last-child {
+    background-color: white;
+}
+
+#detail th:nth-child(1){
+    width: 7%;
+}
+#detail th:nth-child(3){
+    width: 7%;
+}
+#detail th:nth-child(4){
+    width: 14%;
+}
+#detail th:nth-child(5){
+    width: 16%;
+}
+#detail th:nth-child(6){
+    width: 5%;
+}
+#detail th:nth-child(7){
+    /*width: 15%;*/
+    min-width: 20mm;
+}
+/******/
+#total, #shop{
+    /*height: 37mm;*/
+    display: flex;
+    align-items: end;
+}
+.col{
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+.col:last-child{
+    width: 40%;
+}
+.headImg img{
+    height: 5mm;
+    width: auto;
+}
+.col .info-top-right-qrcode{
+    border: none;
+}
+/*#vcb{
+    max-width: 18mm;
+    padding: 3mm;
+}*/
+.payInfo div{
+    padding: 1mm;
+}
+.headInfo{
+    font-size: 3.5mm;
+}
+.col tr{
+    height: 5mm;
+}
+.right-radius, .left-radius{
+    border-top: 2px solid var(--blue);
+}
+.center{
+    display: flex;
+    align-items: center;
+}
+/******/
+#shop{
+    /*height: 21mm;*/
+    /*padding: 2mm;*/
+    border: 2px solid var(--blue);
+    border-radius: 2mm;
+    align-items: center;
+}
+.col i{
+    padding: 2mm;
+    width: 6mm;
+    height: 6mm;
+}
+.zalo{
+    width: 7mm;
+    padding: 2mm;
+}
+@media print{
+    @page{
+        size: A4 portrait;
+    }
+    *{
+        --blue: black;
+    }
+    .bg{
+        color: black;
+    }
+    #brand-logo img:nth-child(1){
+        display: none;
+    }
+    #brand-logo img:nth-child(2){
+        display: block;
+    }
+}
