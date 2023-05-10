@@ -34,14 +34,15 @@ body{
     background-color: white;
 
     margin: auto;
+    margin-bottom: 5mm;
 }
 
-#head, #info, #detail, #total, #shop{
+.head, .info, .detail, #total, #shop{
     /*width: 100%;*/
     margin-top: 7mm;
 }
 /******/
-#head{
+.head{
     display: flex;
     justify-content: space-between;
     height: 20mm;
@@ -87,12 +88,12 @@ img{
 }
 
 /******/
-#info-top{
+.info-top{
     height: 22mm;
     display: flex;
     justify-content: space-between;
 }
-#info-top-left{
+.info-top-left{
     /*width: 84mm;*/
     padding: 3mm 3mm 0 0;
 }
@@ -104,17 +105,17 @@ img{
 #info-top-left .card-header{
     padding-right: 2mm;
 }*/
-#info-top-right{
+.info-top-right{
     width: 89mm;
     border: 2px solid;
     display: flex;
     border-radius: 2mm;
 }
-#info-top-right-col1{
+.info-top-right-col1{
     width: 18mm;
     padding: 2mm;
 }
-#info-top-right-col2{
+.info-top-right-col2{
     width: 42mm;
     padding: 2mm;
 }
@@ -188,7 +189,7 @@ img{
     font-size: 3.11mm;
     font-weight: bold;
 }
-#info-down{
+.info-down{
     height: 10mm;
     padding-top: 1mm;
 }
@@ -203,7 +204,7 @@ img{
     padding-left: 5mm;
 }*/
 /******/
-#detail{
+.detail{
     height: auto;
 }
 /*table{
@@ -305,22 +306,22 @@ tr:last-child {
     background-color: white;
 }
 
-#detail th:nth-child(1){
+.detail th:nth-child(1){
     width: 7%;
 }
-#detail th:nth-child(3){
+.detail th:nth-child(3){
     width: 7%;
 }
-#detail th:nth-child(4){
+.detail th:nth-child(4){
     width: 14%;
 }
-#detail th:nth-child(5){
+.detail th:nth-child(5){
     width: 16%;
 }
-#detail th:nth-child(6){
+.detail th:nth-child(6){
     width: 5%;
 }
-#detail th:nth-child(7){
+.detail th:nth-child(7){
     /*width: 15%;*/
     min-width: 20mm;
 }
