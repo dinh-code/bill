@@ -148,7 +148,7 @@ function _detail(data=[]){
             <td class="text-center">${item.ma}</td>
             <td>
                 <div class="card f-center flex h-fit">
-                    <div class="card-body">${item.ten}</div>
+                    <div class="card-body">${item.ten.length > 20 ? '*' + item.ten.substring(item.ten.length - 19) : item.ten.length}</div>
                     <div class="card-header">${item.moTa}</div>
                 </div>
             </td>
