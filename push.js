@@ -1,6 +1,8 @@
 const bill = {
     qrSize: 150,
     mHPre: '$',
+    s: '',
+    j: {},
 
     matHang: {},
     donHang: [],
@@ -248,10 +250,10 @@ function _build(){
     });
 }
 function _dataImport(){
-    let s = new URL(location.href).searchParams.get("bill");
-    let j = JSON.parse(decodeURIComponent(s));
+    bill.s = new URL(location.href).searchParams.get("bill");
+    bill.j = JSON.parse(decodeURIComponent(bill.s));
 
-    let mhArr = j.mh;
+    let mhArr = bill.j.mh;
     let mh = {};
 
     for (let i = 0; i < mhArr.length; i+=4){
@@ -259,8 +261,8 @@ function _dataImport(){
     }
 
     bill.matHang = mh;
-    bill.donHang = j.dh;
-    bill.thongTin = j.tt;
+    bill.donHang = bill.j.dh;
+    bill.thongTin = bill.j.tt;
     bill.thongTin[6] = bill.thongTin[6].length > 0 ? bill.thongTin[6] : '---';
 }
 function _priceFormat(n = 0){
