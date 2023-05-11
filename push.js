@@ -8,9 +8,9 @@ const bill = {
     dataImport: () => _dataImport(),
 
     container: () => _container(),
-    info: (id, data) => _info(id, data),
+    info: (data) => _info(data),
     detail: (data) => _detail(data),
-    shop: (id, data) => _shop(id, data),
+    shop: (data) => _shop(data),
 
     build: () => _build(),
 
@@ -36,8 +36,12 @@ function _container(id = 1){
         </div>`;
     return container;
 }
-function _info(id = 0, data=[]){
-    //let ghiChu = data[3];
+function _info({id = 0, data=[], no = '---', ten = '---'}){
+    //let maVanDon = 'Mã vận đơn';
+    //let maVanDonValue = data[6];
+    let maVanDon = 'Khách hàng';
+    let maVanDonValue = ten;
+
     let info = document.createElement('div');
     info.classList.add("info");
     info.innerHTML =
@@ -65,7 +69,7 @@ function _info(id = 0, data=[]){
                 <div class="info-top-right-col1">
                     <div class="card">
                         <div class="card-header">Số hóa đơn</div>
-                        <div id="key" class="card-body-sm">${data[3]}</div>
+                        <div id="key" class="card-body-sm">${no}</div>
                     </div>
                     <div class="card">
                         <div class="card-header">Ngày đặt</div>
@@ -78,8 +82,8 @@ function _info(id = 0, data=[]){
                         <div id="tenDVVC" class="card-body-sm">${data[5]}</div>
                     </div>
                     <div class="card text-right">
-                        <div class="card-header text-j-end">Mã vận đơn</div>
-                        <div id="maDon" class="card-body-sm">${data[6]}</div>
+                        <div class="card-header text-j-end">${maVanDon}</div>
+                        <div id="maDon" class="card-body-sm">${maVanDonValue}</div>
                     </div>        
                 </div>
                 <div class="info-top-right-qrcode w17" id="keyQr${id}"></div>
@@ -144,12 +148,12 @@ function _detail(data=[]){
 
     return detail;
 }
-function _shop(id = 0, data = []){
+function _shop({id = 0, data = [], showPM = true}){
     //let vcb = "https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an";
 
     let shop = document.createElement('div');
     shop.classList.add("shop");
-    shop.innerHTML =
+    shop.innerHTML = showPM ?
         `<div class="col">
             <div class="info-top-right-qrcode">
                 <img src="${"https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an"}">
@@ -185,24 +189,25 @@ function _shop(id = 0, data = []){
                 </div>
             </div>
             <div class="info-top-right-qrcode" id="gmap${id}"></div>
-        </div>`;
+        </div>` : '';
     return shop;
 }
 function _build(){
     let id = 0;
+    let showPM = bill.donHang.length > 1 ? false : true;
     bill.donHang.forEach(d => {
         let container = bill.container();
-        let info = bill.info(id, bill.thongTin);
+        let info = bill.info({"id": id, "data": bill.thongTin, "no": d[4], "ten": d[3].toUpperCase()});
         let detail = bill.detail(d);
-        let shop = bill.shop(id, d);
+        let shop = bill.shop({"id": id, "data": d, "showPM": showPM});
         
         container.appendChild(info);
         container.appendChild(detail);
-        container.appendChild(shop);
+        if(showPM) container.appendChild(shop);
         document.body.appendChild(container);
 
         new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: bill.qrSize, height: bill.qrSize});
-        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
+        if(showPM) new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
         //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: bill.qrSize, height: bill.qrSize});
         //console.log("2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr");
 
