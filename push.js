@@ -98,6 +98,7 @@ function _detail(data=[]){
     let tienHang = bill.priceFormat(data[2]*1000);
     let ghiChu = data[3];
     let ds = data[0];
+    let ds_sort = [];
 
     let detail = document.createElement('div');
     detail.classList.add("detail");
@@ -126,6 +127,40 @@ function _detail(data=[]){
         </table>`;
     
     for (let i = 0; i < ds.length; i+=6){
+        ds_sort[ds_sort.length] = {
+            'ma': ds[i+0],
+            'ten': bill.matHang[bill.mHPre+ds[i+0]].ten,
+            'moTa': bill.matHang[bill.mHPre+ds[i+0]].bill,
+            'soLg': ds[i+1],
+            'gia': bill.priceFormat(ds[i+2]*1000),
+            'thanhTien': bill.priceFormat(ds[i+3]*1000),
+            'dongGoi': ds[i+4],
+            'ghiChu': ds[i+5],
+        };
+        console.log(ds_sort[ds_sort.length-1]);
+    }
+
+    ds_sort.sort((a, b)=>{
+        if(a.ma > b.ma) return -1;
+    }).forEach((item)=>{
+        detail.firstChild.insertRow(1).innerHTML =
+        `<tr>
+            <td class="text-center">${item.ma}</td>
+            <td>
+                <div class="card f-center flex h-fit">
+                    <div class="card-body">${item.ten}</div>
+                    <div class="card-header">${item.moTa}</div>
+                </div>
+            </td>
+            <td class="text-center">${item.soLg}</td>
+            <td class="text-right">${item.gia}</td>
+            <td class="text-right">${item.thanhTien}</td>
+            <td class="text-center">${item.dongGoi}</td>
+            <td>${item.ghiChu}</td>
+        </tr>`;
+    });
+
+    /*for (let i = 0; i < ds.length; i+=6){
         detail.firstChild.insertRow(1).innerHTML =
         `<tr>
             <td class="text-center">${ds[i+0]}</td>
@@ -141,7 +176,7 @@ function _detail(data=[]){
             <td class="text-center">${ds[i+4]}</td>
             <td>${ds[i+5]}</td>
         </tr>`;
-    }
+    }*/
     
 
 
