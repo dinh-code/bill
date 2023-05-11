@@ -137,7 +137,6 @@ function _detail(data=[]){
             'dongGoi': ds[i+4],
             'ghiChu': ds[i+5],
         };
-        //console.log(ds_sort[ds_sort.length-1]);
     }
 
     ds_sort.sort((a, b)=>{
@@ -244,7 +243,6 @@ function _build(){
         new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: bill.qrSize, height: bill.qrSize});
         if(showPM) new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
         //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: bill.qrSize, height: bill.qrSize});
-        //console.log("2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr");
 
         id++;
     });
