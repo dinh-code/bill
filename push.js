@@ -38,11 +38,14 @@ function _container(id = 1){
         </div>`;
     return container;
 }
-function _info({id = 0, data=[], no = '---', ten = '---'}){
+function _info({id = 0, data=[], no = '---', ten = '---', showInfo = false}){
     //let maVanDon = 'Mã vận đơn';
     //let maVanDonValue = data[6];
     let maVanDon = 'Khách hàng';
     let maVanDonValue = ten.length > 20 ? '...' + ten.substring(ten.length - 17) : ten;
+    //let sdt = data[1].length > 0 ? data[1] : '---';
+    let sdt = data[1].length > 0 ? '********' + data[1].substring(data[1].length - 2) : '---';
+    let diaChi = '********' + data[2].substring(8);
 
     let info = document.createElement('div');
     info.classList.add("info");
@@ -56,14 +59,14 @@ function _info({id = 0, data=[], no = '---', ten = '---'}){
                 </div>
                 <div class="card h">
                     <div class="card-header"><i class="material-icons">phone</i>Điện thoại:&nbsp;
-                        <div id="sdt" class="card-body">${data[1].length > 0 ? data[1] : '---'}</div>
+                        <div id="sdt" class="card-body">${sdt}</div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
                         <i class="material-icons">pin_drop</i>
                         <!--div class="card-body dc" style="width: 16mm;">Địa chỉ:&nbsp;</div-->
-                        <div id="diaChi" class="card-body dc">Địa chỉ: ${data[2]}</div>
+                        <div id="diaChi" class="card-body dc">Địa chỉ: ${diaChi}</div>
                     </div>
                 </div>
             </div>
@@ -184,12 +187,12 @@ function _detail(data=[]){
 
     return detail;
 }
-function _shop({id = 0, data = [], showPM = true}){
+function _shop({id = 0, data = [], showInfo = true}){
     //let vcb = "https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an";
 
     let shop = document.createElement('div');
     shop.classList.add("shop");
-    shop.innerHTML = showPM ?
+    shop.innerHTML = showInfo ?
         `<div class="col">
             <div class="info-top-right-qrcode">
                 <img src="${"https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an"}">
@@ -226,15 +229,36 @@ function _shop({id = 0, data = [], showPM = true}){
             </div>
             <div class="info-top-right-qrcode" id="gmap${id}"></div>
         </div>`:
-        `<div class="col"></div>
-        <div class="col"></div>
+        `<div class="col">
+            <div class="info-top-right-qrcode" id="shopee${id}"></div>
+            <div class="payInfo">
+                <div class="headImg">
+                    <img src="/shopee.svg">
+                </div> 
+                <div class="headInfo" style="visibility: hidden;">
+                    ĐINH PHƯỚC AN<br>0968 747 831
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="info-top-right-qrcode" id="zalo${id}">
+            </div>
+            <div class="payInfo">
+                <div class="headImg">
+                    <img src="/zalo.svg">
+                </div>
+                <div class="headInfo">
+                Mua hàng & tư vấn<BR>05696 08118
+                </div>
+            </div>
+        </div>
         <div class="col" style="justify-content: flex-end;">
             <div class="payInfo">
                 <div class="headImg">
                     <img src="/gmap.svg">
                 </div>
                 <div class="headInfo" style="font-weight: bold;">
-                    Mua hàng & tư vấn<BR>05696 08118 (Zalo)
+                    49/24/5 Trịnh Đình Trọng<BR>Phú Trung, Tân Phú, HCM
                 </div>
             </div>
             <div class="info-top-right-qrcode" id="gmap${id}"></div>
@@ -243,12 +267,12 @@ function _shop({id = 0, data = [], showPM = true}){
 }
 function _build(){
     let id = 0;
-    let showPM = bill.donHang.length > 1 ? false : true;
+    let showInfo = bill.donHang.length > 1 ? false : true;
     bill.donHang.forEach(d => {
         let container = bill.container();
         let info = bill.info({"id": id, "data": bill.thongTin, "no": d[4], "ten": d[3].toUpperCase()});
         let detail = bill.detail(d);
-        let shop = bill.shop({"id": id, "data": d, "showPM": showPM});
+        let shop = bill.shop({"id": id, "data": d, "showInfo": showInfo});
         
         container.appendChild(info);
         container.appendChild(detail);
@@ -258,6 +282,12 @@ function _build(){
         new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: bill.qrSize, height: bill.qrSize});
         new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
         //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: bill.qrSize, height: bill.qrSize});
+        if (showInfo) {
+
+        } else {
+            new QRCode(document.getElementById("zalo" + id), {text: "https://zalo.me/0569608118", width: bill.qrSize, height: bill.qrSize});
+            new QRCode(document.getElementById("shopee" + id), {text: "https://shopee.vn/nhakhoasinhvien", width: bill.qrSize, height: bill.qrSize});
+        }
 
         id++;
     });
