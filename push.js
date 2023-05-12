@@ -1,6 +1,7 @@
 const qrSize = 150;
 const mHPre = '$';
-var s = new URL(location.href).searchParams.get("bill");
+const workType =  new URL(location.href).searchParams.get("type");
+var s = new URL(location.href).searchParams.get("data");
 var j = JSON.parse(decodeURIComponent(s));
 
 const bill = {
@@ -20,8 +21,10 @@ const bill = {
 }
 
 const qr = {
-    qrSize: qrSize,
+    matHang: {},
+    donHang: [],
 
+    dataImport: () => _dataImportQR(),
 }
 
 function _container(id = 1){
@@ -311,15 +314,26 @@ function _priceFormat(n = 0){
     //return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
     return n.toLocaleString('vi-VN') + ' đ';
 }
-
-function _matHangGet(data = []){
+function _matHangGet(data = [], type = 'bill'){
     let mh = {};
 
+    if (type == 'bill'){
+        for (let i = 0; i < data.length; i+=4){
+            mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "moTa": data[i+3], "bill": data[i+3]+' ('+data[i+2]+')'};
+        }
+        return mh;
+    }
     for (let i = 0; i < data.length; i+=4){
-        mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "moTa": data[i+3], "bill": data[i+3]+' ('+data[i+2]+')'};
+        mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "qr": '('+data[i+2]+')'};
     }
     return mh;
+}
+function _dataImportQR(){
+    qr.matHang = _matHangGet(j.mh, 'qr');
+    qr.donHang = j.dh;
 }
 
 bill.dataImport();
 bill.build();
+
+qr.dataImport();
