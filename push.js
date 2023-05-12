@@ -225,7 +225,20 @@ function _shop({id = 0, data = [], showPM = true}){
                 </div>
             </div>
             <div class="info-top-right-qrcode" id="gmap${id}"></div>
-        </div>` : '';
+        </div>`:
+        `<div class="col"></div>
+        <div class="col"></div>
+        <div class="col" style="justify-content: flex-end;">
+            <div class="payInfo">
+                <div class="headImg">
+                    <img src="/gmap.svg">
+                </div>
+                <div class="headInfo" style="font-weight: bold;">
+                    Mua hàng & tư vấn<BR>05696 08118 (Zalo)
+                </div>
+            </div>
+            <div class="info-top-right-qrcode" id="gmap${id}"></div>
+        </div>`;
     return shop;
 }
 function _build(){
@@ -239,11 +252,11 @@ function _build(){
         
         container.appendChild(info);
         container.appendChild(detail);
-        if(showPM) container.appendChild(shop);
+        container.appendChild(shop);
         document.body.appendChild(container);
 
         new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: bill.qrSize, height: bill.qrSize});
-        if(showPM) new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
+        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
         //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: bill.qrSize, height: bill.qrSize});
 
         id++;
