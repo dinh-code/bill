@@ -266,7 +266,11 @@ function _shop({id = 0, data = [], showInfo = true}){
     return shop;
 }
 function _build(){
-    let id = 0;
+    let id = 1;
+
+    //Tổng đơn id = 0, bán hàng chi tiết thêm cột GIÁ IN HÓA ĐƠN
+
+
     let showInfo = bill.donHang.length > 1 ? false : true;
     bill.donHang.forEach(d => {
         let container = bill.container();
