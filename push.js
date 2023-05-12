@@ -1,13 +1,13 @@
-const bill = {
-    qrSize: 150,
-    mHPre: '$',
-    s: '',
-    j: {},
+const qrSize = 150;
+const mHPre = '$';
+var s = new URL(location.href).searchParams.get("bill");
+var j = JSON.parse(decodeURIComponent(s));
 
+const bill = {
     matHang: {},
     donHang: [],
     thongTin: [],
-    dataImport: () => _dataImport(),
+    dataImport: () => _dataImportBill(),
 
     container: () => _container(),
     info: (data) => _info(data),
@@ -17,6 +17,11 @@ const bill = {
     build: () => _build(),
 
     priceFormat: (n) => _priceFormat(n),
+}
+
+const qr = {
+    qrSize: qrSize,
+
 }
 
 function _container(id = 1){
@@ -134,8 +139,8 @@ function _detail(data=[]){
     for (let i = 0; i < ds.length; i+=6){
         ds_sort[ds_sort.length] = {
             'ma': ds[i+0],
-            'ten': bill.matHang[bill.mHPre+ds[i+0]].ten,
-            'moTa': bill.matHang[bill.mHPre+ds[i+0]].bill,
+            'ten': bill.matHang[mHPre+ds[i+0]].ten,
+            'moTa': bill.matHang[mHPre+ds[i+0]].bill,
             'soLg': ds[i+1],
             'gia': bill.priceFormat(ds[i+2]*1000),
             'thanhTien': bill.priceFormat(ds[i+3]*1000),
@@ -170,8 +175,8 @@ function _detail(data=[]){
             <td class="text-center">${ds[i+0]}</td>
             <td>
                 <div class="card f-center flex h-fit">
-                    <div class="card-body">${bill.matHang[bill.mHPre+ds[i+0]].ten}</div>
-                    <div class="card-header">${bill.matHang[bill.mHPre+ds[i+0]].bill}</div>
+                    <div class="card-body">${bill.matHang[mHPre+ds[i+0]].ten}</div>
+                    <div class="card-header">${bill.matHang[mHPre+ds[i+0]].bill}</div>
                 </div>
             </td>
             <td class="text-center">${ds[i+1]}</td>
@@ -283,38 +288,37 @@ function _build(){
         container.appendChild(shop);
         document.body.appendChild(container);
 
-        new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: bill.qrSize, height: bill.qrSize});
-        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: bill.qrSize, height: bill.qrSize});
-        //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: bill.qrSize, height: bill.qrSize});
+        new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
+        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
+        //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: qrSize, height: qrSize});
         if (showInfo) {
 
         } else {
-            new QRCode(document.getElementById("zalo" + id), {text: "https://zalo.me/0569608118", width: bill.qrSize, height: bill.qrSize});
-            new QRCode(document.getElementById("shopee" + id), {text: "https://shopee.vn/nhakhoasinhvien", width: bill.qrSize, height: bill.qrSize});
+            new QRCode(document.getElementById("zalo" + id), {text: "https://zalo.me/0569608118", width: qrSize, height: qrSize});
+            new QRCode(document.getElementById("shopee" + id), {text: "https://shopee.vn/nhakhoasinhvien", width: qrSize, height: qrSize});
         }
 
         id++;
     });
 }
-function _dataImport(){
-    bill.s = new URL(location.href).searchParams.get("bill");
-    bill.j = JSON.parse(decodeURIComponent(bill.s));
-
-    let mhArr = bill.j.mh;
-    let mh = {};
-
-    for (let i = 0; i < mhArr.length; i+=4){
-        mh[bill.mHPre+mhArr[i]] = {"ten":mhArr[i+1], "donVi": mhArr[i+2], "moTa": mhArr[i+3], "bill": mhArr[i+3]+' ('+mhArr[i+2]+')'};
-    }
-
-    bill.matHang = mh;
-    bill.donHang = bill.j.dh;
-    bill.thongTin = bill.j.tt;
+function _dataImportBill(){
+    bill.matHang = _matHangGet(j.mh);
+    bill.donHang = j.dh;
+    bill.thongTin = j.tt;
     bill.thongTin[6] = bill.thongTin[6].length > 0 ? bill.thongTin[6] : '---';
 }
 function _priceFormat(n = 0){
     //return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
     return n.toLocaleString('vi-VN') + ' đ';
+}
+
+function _matHangGet(data = []){
+    let mh = {};
+
+    for (let i = 0; i < data.length; i+=4){
+        mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "moTa": data[i+3], "bill": data[i+3]+' ('+data[i+2]+')'};
+    }
+    return mh;
 }
 
 bill.dataImport();
