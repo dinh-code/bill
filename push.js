@@ -65,7 +65,7 @@ function _info({id = 0, data=[], no = '---', ten = '---', showInfo = false}){
         `<div class="info-top">
             <div class="info-top-left">
                 <div class="card h">
-                    <div class="card-header"><i class="material-icons">person</i> Đại lý (anh / chị):&nbsp;
+                    <div class="card-header"><i class="material-icons">person</i> Đại diện (anh / chị):&nbsp;
                         <div class="card-body hoTen">${data[0]}</div>
                     </div>
                 </div>
