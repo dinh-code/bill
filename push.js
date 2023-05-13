@@ -340,8 +340,10 @@ function _dataImportQR(){
 }
 function _buildQR(){
     let id = 0;
+    let qrArrs = [];
     qr.addStyle();
-    qr.donHang.forEach(d => _qrAdd({data: d[0], no: d[1], id: id++}));
+    qr.donHang.reverse().forEach(d => qrArrs.push(..._qrAdd({data: d[0], no: d[1], id: id++})));
+    qrArrs.forEach(qrArr => new QRCode(document.getElementById(qrArr.id), {text: qrArr.qrText+'', width: qrSize, height: qrSize}));
 }
 function _addStyle(){
     let link = document.createElement('link');
@@ -354,9 +356,44 @@ function _addStyle(){
     document.body.appendChild(link);
 }
 function _qrAdd({data = [], no = '---', id = 0}){
-    let n = 1;
-    let qrCode = [];
+    let n = data.length/3;
+    let qrArr = [];
+    let dataJson = [];
+
     for (let i = 0; i < data.length; i+=3) {
+        dataJson.push({
+            ma: '$' + data[i],
+
+            title: 'NHAKHOASV.COM | ' + no,
+            ten: qr.matHang['$' + data[i]].ten,
+            soLg: 'Số lg: ' + data[i+1] + ' ' + qr.matHang['$' + data[i]].qr,
+            foot: data[i+2] == '' ? '' : data[i+2] + ' | ',
+        });
+    }
+
+    dataJson.sort((a, b) => {
+        if (a.ma > b.ma) return -1;
+    }).forEach(item => {
+        let foot = item.foot + n + '/' + data.length/3;
+        document.body.innerHTML +=
+            `<div class="item">
+                <div class="head">${item.title}</div>
+                <div class="tbody">
+                    <div class="left" id="qr${id + '' + n}"></div>
+                    <div class="right">${item.ten}</div>
+                </div>
+                <div class="foot">
+                    <div class="f-size-3">${item.soLg}</div>
+                    <div>${foot}</div>
+                </div>
+            </div>`;
+        
+        qrArr.push({
+            id: 'qr' + id + '' + n--,
+            qrText: no,
+        });
+    });
+    /*for (let i = 0; i < data.length; i+=3) {
         let item = {
             title: 'NHAKHOASV.COM | ' + no,
             id: id + '' + n,
@@ -376,10 +413,12 @@ function _qrAdd({data = [], no = '---', id = 0}){
                 <div class="foot">${item.foot}</div>
             </div>`;
         
-        qrCode.push(no + '');
-    };
-    
-    qrCode.forEach(i => new QRCode(document.getElementById("qr" + i), {text: i, width: qrSize, height: qrSize}));
+        qrArr.push({
+            id: 'qr' + item.id,
+            qrText: no,
+        });
+    };*/
+    return qrArr;
 }
 
 if  (workType == 'bill'){

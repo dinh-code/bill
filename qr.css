@@ -60,12 +60,12 @@ body{
     font-weight: bold;
 }
 .head, .foot{
-    height: 3.6mm;
     display: grid;
     /*align-items: center;*/
     border: 0.25mm black solid;
 }
 .head{
+    height: 3.6mm;
     border-width: 0 0 0.25mm 0;
     align-items: end;
 }
@@ -73,17 +73,25 @@ body{
     display: flex;
 }
 .foot{
+    height: 5mm;
     border-width: 0.25mm 0 0 0;
     align-items: start;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1mm;
+    line-height: 5mm;
+}
+.f-size-3{
+    font-size: 3mm;
 }
 .left{
-    width: 14mm;
+    width: 12mm;
     /*height: 100%;*/
     border: 0.25mm black solid;
     border-width: 0 0.25mm 0 0;
 }
 .right{
-    width: 21mm;
+    width: 23mm;
     /*height: 100%;*/
     text-transform: uppercase;
     font-size: 2.5mm;
@@ -93,8 +101,8 @@ body{
     align-items: center;
 }
 img{
-    width: 12mm;
-    height: 12mm;
+    width: 10mm;
+    height: 10mm;
     padding: 1mm;
 }
 
