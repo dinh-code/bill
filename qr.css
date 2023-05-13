@@ -1,0 +1,119 @@
+*{
+    font-family: sans-serif;
+    font-size: 2.2mm;
+    /*line-height: 2.2mm;*/
+    text-align: center;
+    --gray: #D9D9D9;
+    --height: 21mm;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+
+    /*background-color: var(--gray);*/
+
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+
+    padding: 0 2mm;
+    width: 71mm;
+    /*padding: 2mm;*/
+    background-color: var(--gray);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1mm;
+}
+.container{
+    padding: 0 2mm;
+    width: 70mm;
+    /*min-height: 22mm;*/
+    /*padding: 2mm;*/
+    background-color: var(--gray);
+    display: flex;
+    flex-wrap: wrap;
+    /*gap: 1mm;*/
+}
+#print{
+    padding: 0 2mm;
+    width: 70mm;
+    /*min-height: 22mm;*/
+    /*padding: 2mm;*/
+    background-color: var(--gray);
+    display: flex;
+    flex-wrap: wrap;
+    /*gap: 1mm;*/
+}
+.item{
+    width: 35mm;
+    height: var(--height);
+    background-color: white;
+}
+.item p{
+    height: 17mm;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    font-size: 3mm;
+    text-transform: uppercase;
+    padding: 2mm;
+    font-weight: bold;
+}
+.head, .foot{
+    height: 3.6mm;
+    display: grid;
+    /*align-items: center;*/
+    border: 0.25mm black solid;
+}
+.head{
+    border-width: 0 0 0.25mm 0;
+    align-items: end;
+}
+.tbody{
+    display: flex;
+}
+.foot{
+    border-width: 0.25mm 0 0 0;
+    align-items: start;
+}
+.left{
+    width: 14mm;
+    /*height: 100%;*/
+    border: 0.25mm black solid;
+    border-width: 0 0.25mm 0 0;
+}
+.right{
+    width: 21mm;
+    /*height: 100%;*/
+    text-transform: uppercase;
+    font-size: 2.5mm;
+    font-weight: bold;
+    line-height: 3mm;
+    display: grid;
+    align-items: center;
+}
+img{
+    width: 12mm;
+    height: 12mm;
+    padding: 1mm;
+}
+
+
+@media print{
+    @page{
+        size: 70mm var(--height);
+        margin: 0 0 0 0;
+    }
+    body{
+        margin: 0;
+        border: none!important;
+        width: 70mm;
+        gap: 0;
+    }
+    /*.item:nth-child(2n){
+        page-break-before: always;
+    }*/
+    /*.item:last-child{
+        page-break-after:unset;
+    }*/
+}

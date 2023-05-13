@@ -1,6 +1,6 @@
 const qrSize = 150;
 const mHPre = '$';
-const workType =  new URL(location.href).searchParams.get("type");
+const workType =  new URL(location.href).searchParams.get("workType");
 var s = new URL(location.href).searchParams.get("data");
 var j = JSON.parse(decodeURIComponent(s));
 
@@ -16,6 +16,7 @@ const bill = {
     shop: (data) => _shop(data),
 
     build: () => _build(),
+    addStyle: () => _addStyle(),
 
     priceFormat: (n) => _priceFormat(n),
 }
@@ -24,6 +25,9 @@ const qr = {
     matHang: {},
     donHang: [],
 
+    qrAdd: (data) => _qrAdd(data),
+    build: () => _buildQR(),
+    addStyle: (style) => _addStyle(style),
     dataImport: () => _dataImportQR(),
 }
 
@@ -274,6 +278,8 @@ function _shop({id = 0, data = [], showInfo = true}){
     return shop;
 }
 function _build(){
+    bill.addStyle();
+
     let id = 1;
 
     //Tổng đơn id = 0, bán hàng chi tiết thêm cột GIÁ IN HÓA ĐƠN
@@ -323,8 +329,8 @@ function _matHangGet(data = [], type = 'bill'){
         }
         return mh;
     }
-    for (let i = 0; i < data.length; i+=4){
-        mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "qr": '('+data[i+2]+')'};
+    for (let i = 0; i < data.length; i+=3   ){
+        mh[mHPre+data[i]] = {"ten":data[i+1], "donVi": data[i+2], "qr": '('+data[i+2]+')'}; 
     }
     return mh;
 }
@@ -332,8 +338,57 @@ function _dataImportQR(){
     qr.matHang = _matHangGet(j.mh, 'qr');
     qr.donHang = j.dh;
 }
+function _buildQR(){
+    let id = 0;
+    qr.addStyle();
+    qr.donHang.forEach(d => _qrAdd({data: d[0], no: d[1], id: id++}));
+}
+function _addStyle(){
+    let link = document.createElement('link');
+    if (workType == 'bill') link.href = 'style.css';
+    if (workType == 'qr') link.href = 'qr.css';
 
-bill.dataImport();
-bill.build();
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.media = 'all';
+    document.body.appendChild(link);
+}
+function _qrAdd({data = [], no = '---', id = 0}){
+    let n = 1;
+    let qrCode = [];
+    for (let i = 0; i < data.length; i+=3) {
+        let item = {
+            title: 'NHAKHOASV.COM | ' + no,
+            id: id + '' + n,
+            ten: qr.matHang['$' + data[i]].ten,
+            foot: data[i+2] == '' ?
+            'Số lg: ' + data[i+1] + ' ' + qr.matHang['$' + data[i]].qr + ' | ' + n++ + '/' + data.length/3
+            : 'Số lg: ' + data[i+1] + ' ' + qr.matHang['$' + data[i]].qr + ' | ' + data[i+2] + ' | ' + n++ + '/' + data.length/3,
+        }
 
-qr.dataImport();
+        document.body.innerHTML +=
+            `<div class="item">
+                <div class="head">${item.title}</div>
+                <div class="tbody">
+                    <div class="left" id="qr${item.id}"></div>
+                    <div class="right">${item.ten}</div>
+                </div>
+                <div class="foot">${item.foot}</div>
+            </div>`;
+        
+        qrCode.push(no + '');
+    };
+    
+    qrCode.forEach(i => new QRCode(document.getElementById("qr" + i), {text: i, width: qrSize, height: qrSize}));
+}
+
+if  (workType == 'bill'){
+    bill.dataImport();
+    bill.build();
+}
+
+if (workType == 'qr'){
+    qr.dataImport();
+    qr.build();
+}
+
