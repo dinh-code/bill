@@ -9,6 +9,7 @@ const bill = {
     donHang: [],
     thongTin: [],
     dataImport: () => _dataImportBill(),
+    dataImportTotal: () => _dataImportBillTotal(),
 
     container: () => _container(),
     info: (data) => _info(data),
@@ -20,7 +21,6 @@ const bill = {
 
     priceFormat: (n) => _priceFormat(n),
 }
-
 const qr = {
     matHang: {},
     donHang: [],
@@ -30,7 +30,6 @@ const qr = {
     addStyle: (style) => _addStyle(style),
     dataImport: () => _dataImportQR(),
 }
-
 function _container(id = 1){
     let container = document.createElement('div');
     container.classList.add("container");
@@ -253,8 +252,8 @@ function _shop({id = 0, data = [], showInfo = true}){
                 <div class="headImg">
                     <img src="/shopee.svg">
                 </div> 
-                <div class="headInfo" style="visibility: hidden;">
-                    ĐINH PHƯỚC AN<br>0968 747 831
+                <div class="headInfo">
+                    Freeship Xtra<br>shopee.vn/nhakhoasv
                 </div>
             </div>
         </div>
@@ -299,9 +298,9 @@ function _build(){
         container.appendChild(detail);
         container.appendChild(shop);
         document.body.appendChild(container);
-
+        
+        new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
         if (showInfo) {
-            new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
             new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
             let momo = '2|99|0968747831|Dinh Phuoc An||0|0|'+d[2]*1000+'|'+bill.thongTin[3]+' '+removeVietnameseTones(bill.thongTin[0]).toUpperCase()+'|transfer_myqr';
             new QRCode(document.getElementById("momo" + id), {text: momo, width: qrSize, height: qrSize});
@@ -318,6 +317,10 @@ function _dataImportBill(){
     bill.donHang = j.dh;
     bill.thongTin = j.tt;
     bill.thongTin[6] = bill.thongTin[6].length > 0 ? bill.thongTin[6] : '---';
+}
+function _dataImportBillTotal(){
+    _dataImportBill();
+    
 }
 function _priceFormat(n = 0){
     //return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
@@ -423,14 +426,15 @@ function _qrAdd({data = [], no = '---', id = 0}){
     };*/
     return qrArr;
 }
-
 if  (workType == 'bill'){
     bill.dataImport();
     bill.build();
 }
-
+if  (workType == 'billAll'){
+    bill.dataImportTotal();
+    bill.build();
+}
 if (workType == 'qr'){
     qr.dataImport();
     qr.build();
 }
-
