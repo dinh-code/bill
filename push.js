@@ -51,13 +51,19 @@ function _container(id = 1){
     return container;
 }
 function _info({id = 0, data=[], no = '---', ten = '---', showInfo = false}){
-    //let maVanDon = 'Mã vận đơn';
-    //let maVanDonValue = data[6];
     let maVanDon = 'Khách hàng';
     let maVanDonValue = ten.length > 20 ? '...' + ten.substring(ten.length - 17) : ten;
-    //let sdt = data[1].length > 0 ? data[1] : '---';
+
     let sdt = data[1].length > 0 ? '********' + data[1].substring(data[1].length - 2) : '---';
     let diaChi = '********' + data[2].substring(8);
+
+    if (showInfo) {
+        maVanDon = 'Mã vận đơn';
+        maVanDonValue = data[6];
+
+        sdt = data[1];
+        diaChi = data[2];
+    }
 
     let info = document.createElement('div');
     info.classList.add("info");
@@ -65,7 +71,7 @@ function _info({id = 0, data=[], no = '---', ten = '---', showInfo = false}){
         `<div class="info-top">
             <div class="info-top-left">
                 <div class="card h">
-                    <div class="card-header"><i class="material-icons">person</i> Đại diện (anh / chị):&nbsp;
+                    <div class="card-header"><i class="material-icons">person</i> ${showInfo ? 'Khách hàng' : 'Đại diện'} (anh / chị):&nbsp;
                         <div class="card-body hoTen">${data[0]}</div>
                     </div>
                 </div>
@@ -200,14 +206,14 @@ function _detail(data=[]){
     return detail;
 }
 function _shop({id = 0, data = [], showInfo = true}){
-    //let vcb = "https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an";
+    let vcb = "https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(bill.thongTin[0]).toUpperCase()+"&accountName=Dinh phuoc an";
 
     let shop = document.createElement('div');
     shop.classList.add("shop");
     shop.innerHTML = showInfo ?
         `<div class="col">
             <div class="info-top-right-qrcode">
-                <img src="${"https://img.vietqr.io/image/VCB-9968747831-qr_only.png?amount="+data[2]*1000+"&addInfo="+"23050500"+"%20"+removeVietnameseTones(data[3])+"%20"+bill.thongTin[1]+"&accountName=Dinh phuoc an"}">
+                <img src="${vcb}">
             </div>
             <div class="payInfo">
                 <div class="headImg">
@@ -282,13 +288,10 @@ function _build(){
 
     let id = 1;
 
-    //Tổng đơn id = 0, bán hàng chi tiết thêm cột GIÁ IN HÓA ĐƠN
-
-
     let showInfo = bill.donHang.length > 1 ? false : true;
     bill.donHang.forEach(d => {
         let container = bill.container();
-        let info = bill.info({"id": id, "data": bill.thongTin, "no": d[4], "ten": d[3].toUpperCase()});
+        let info = bill.info({"id": id, "data": bill.thongTin, "no": d[4], "ten": d[3].toUpperCase(), showInfo: showInfo});
         let detail = bill.detail(d);
         let shop = bill.shop({"id": id, "data": d, "showInfo": showInfo});
         
@@ -297,11 +300,11 @@ function _build(){
         container.appendChild(shop);
         document.body.appendChild(container);
 
-        new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
-        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
-        //new QRCode(document.getElementById("momo" + id), {text: "2|99|0968747831|Dinh Phuoc An||0|0|"+d[2]*1000+"|"+bill.thongTin[3]+" "+bill.thongTin[0]+" "+bill.thongTin[1]+"|transfer_myqr", width: qrSize, height: qrSize});
         if (showInfo) {
-
+            new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
+            new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
+            let momo = '2|99|0968747831|Dinh Phuoc An||0|0|'+d[2]*1000+'|'+bill.thongTin[3]+' '+removeVietnameseTones(bill.thongTin[0]).toUpperCase()+'|transfer_myqr';
+            new QRCode(document.getElementById("momo" + id), {text: momo, width: qrSize, height: qrSize});
         } else {
             new QRCode(document.getElementById("zalo" + id), {text: "https://zalo.me/0569608118", width: qrSize, height: qrSize});
             new QRCode(document.getElementById("shopee" + id), {text: "https://shopee.vn/nhakhoasinhvien", width: qrSize, height: qrSize});
