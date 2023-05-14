@@ -300,8 +300,9 @@ function _build(){
         document.body.appendChild(container);
         
         new QRCode(document.getElementById("keyQr" + id), {text: bill.thongTin[3]+'', width: qrSize, height: qrSize});
+        new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
+
         if (showInfo) {
-            new QRCode(document.getElementById("gmap" + id), {text: "https://goo.gl/maps/WNVStknA7ZxCAQG48", width: qrSize, height: qrSize});
             let momo = '2|99|0968747831|Dinh Phuoc An||0|0|'+d[2]*1000+'|'+bill.thongTin[3]+' '+removeVietnameseTones(bill.thongTin[0]).toUpperCase()+'|transfer_myqr';
             new QRCode(document.getElementById("momo" + id), {text: momo, width: qrSize, height: qrSize});
         } else {
